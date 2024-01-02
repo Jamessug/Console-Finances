@@ -126,7 +126,8 @@ function calculateAverageChange(data) {
   // Calculate the average change
   var averageChange = totalChange / (data.length - 1);
 
-  console.log('Average Change: $' + averageChange);
+  // Display the average change with two decimal places and a minus sign for negative values
+  console.log('Average Change: $' + (averageChange < 0 ? '-' : '') + Math.abs(averageChange).toFixed(2));
 }
 
 // Identify greatest increase and decrease in Profit/Losses
