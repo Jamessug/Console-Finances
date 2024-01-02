@@ -1,7 +1,7 @@
 var finances = [
   ['Jan-2010', 867884], // array in an array, showing every motnhs finances with some being profit and some moves it's a loss // 
   ['Feb-2010', 984655], // month-year, profit/loss
-  ['Mar-2010', 322013], // how do i find out how mnay months in the array if all a different month
+  ['Mar-2010', 322013], // how do i find out how many months in the array if all a different month
   ['Apr-2010', -69417],
   ['May-2010', 310503],
   ['Jun-2010', 522857],
@@ -94,24 +94,82 @@ calculateAverageChange(finances);
 identifyGreatestIncreaseDecrease(finances);
 displayResults();
 
-// Define functions for analysis
 
+// Calculate total number of months
 function calculateTotalMonths(data) {
-  
+  // The length of the array represents the total number of months
+  var totalMonths = data.length;
+  console.log('Total Months:', totalMonths);
 }
 
+// Calculate net total of Profit/Losses
 function calculateNetTotal(data) {
-  
+  var netTotal = 0;
+
+  // Iterate through the array and sum up all Profit/Losses
+  for (var i = 0; i < data.length; i++) {
+    netTotal += data[i][1];
+  }
+
+  console.log('Total: $' + netTotal);
 }
 
+// Calculate average change in Profit/Losses
 function calculateAverageChange(data) {
-  
+  var totalChange = 0;
+
+  // Iterate through the array and calculate the change from month to month
+  for (var i = 1; i < data.length; i++) {
+    totalChange += data[i][1] - data[i - 1][1];
+  }
+
+  // Calculate the average change
+  var averageChange = totalChange / (data.length - 1);
+
+  console.log('Average Change: $' + averageChange);
 }
 
+// Identify greatest increase and decrease in Profit/Losses
 function identifyGreatestIncreaseDecrease(data) {
-  
+  var greatestIncrease = { date: '', amount: 0 };
+  var greatestDecrease = { date: '', amount: 0 };
+
+  // Iterate through the array and find the greatest increase and decrease
+  for (var i = 1; i < data.length; i++) {
+    var change = data[i][1] - data[i - 1][1];
+
+    // Check for the greatest increase
+    if (change > greatestIncrease.amount) {
+      greatestIncrease.date = data[i][0];
+      greatestIncrease.amount = change;
+    }
+    // Check for the greatest decrease
+    else if (change < greatestDecrease.amount) {
+      greatestDecrease.date = data[i][0];
+      greatestDecrease.amount = change;
+    }
+  }
+
+  // Display the results
+  console.log(
+    'Greatest Increase in Profits/Losses:',
+    greatestIncrease.date,
+    '($' + greatestIncrease.amount + ')'
+  );
+
+  console.log(
+    'Greatest Decrease in Profits/Losses:',
+    greatestDecrease.date,
+    '($' + greatestDecrease.amount + ')'
+  );
 }
 
+// Display total results as requested
 function displayResults() {
-  
+  console.log('Financial Analysis');
+  console.log('----------------');
+  calculateTotalMonths(finances);
+  calculateNetTotal(finances);
+  calculateAverageChange(finances);
+  identifyGreatestIncreaseDecrease(finances);
 }
